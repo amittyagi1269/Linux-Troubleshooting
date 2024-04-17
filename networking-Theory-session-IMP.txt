@@ -1,0 +1,282 @@
+========================================
+
+  Networking Configuration 
+
+========================================
+
+Session-1  Networking Basic Fundamental
+
+Session-2  Network Configuration between two or more machines ?
+
+
+========================================
+
+Machine <=== OS  <=== local to local login <== activity start
+
+There is no need of local network or intenet connection
+
+========================================
+Laptop-1  ==> 
+Laptop-2  ==> 
+======================================== 
+1- Cross Cable
+2- HUB
+3- SWITCH
+========================================
+4- Machine
+5- NIC or LAN Card
+6- RJ45 Connector
+========================================
+Types of  Address on every machine ?
+
+1- Physical Address  ==>  MAC address or Ethernet address or hardware address or LAN Card add 
+
+2- Logical address   ==>  IP  ==> IP-V4
+                              ==> IP-V6 
+
+========================================
+
+
+# ifconfig   ==> linux 
+# ipconfig   ==> windows 
+
+========================================
+IANA  ==> internet assign numbers authority
+========================================
+bit  ==> 0   ==> off bit
+     ==> 1   ==> on  bit
+========================================
+MAC address  ==> media access control 
+
+Address  ==> Hexadecimal ( 0-9, A-F)
+Total Block ==> 6 Block and each block seperated by colon symbol :
+one block   ==> 8 Bit
+Total bit address  ==>  8 * 6  ==> 48 Bit address
+=======================================
+IP - V4
+IP - V6 
+=======================================
+IP-V4
+
+Address  ==> decimal ( 0-9 )
+Total Block ==> 4 Block and each block seperated by dot symbol .
+one block   ==> 8 Bit
+Total bit address  ==>  8 * 4  ==> 32 Bit address
+
+=======================================
+IP-V6
+
+Address  ==> Hexa-decimal ( 0-9, A-F )
+Total Block ==> 8 Block and each block seperated by colon symbols :
+one block   ==> 16 Bit
+Total bit address  ==>  8 * 16  ==> 128 Bit address
+
+=======================================
+
+Types of IP ?
+
+1- Private IP OR personal IP or Free IP ==> use only in my local network
+2- Public IP or WAN 
+
+=======================================
+bit   ==> 0 or 1
+1 block ==> 8 Bit  ==> 00000000 ==>  0
+                       11111111 ==>  255
+========================================
+Machine  ==> ip address  ==> 192.168.0.10     ==> valid ip 
+                             500.600.700.800  ==> not a valid ip
+========================================
+Class Range
+
+A    ==>    0 - 126
+
+B    ==>  128 - 191
+
+C    ==>  192 - 223
+
+D    ==>  224 - 239
+
+E    ==>  240 - 255
+========================================
+loopback address  ==> 127.0.0.1
+========================================
+10.0.0.1    ?    ==> A Class
+172.16.10.25 ?   ==> B Class
+192.168.10.20 ?  ==> C Class
+========================================
+Unicast
+Multicast
+Broadcast
+========================================
+
+Private IP address Range ?
+
+A   ==>   10.0.0.0     to    10.255.255.255
+
+B   ==>   172.16.0.0   to    172.31.255.255
+
+C   ==>   192.168.0.0  to    192.168.255.255
+
+
+======================================
+11.1.2.3  ==> Class A    ==> public range
+172.25.0.11  ==> Class B ==> private range
+172.15.0.1   ==> Class B ==> public Range
+172.32.0.11  ==> Class B ==> public Range
+192.168.10.11 ==> Class C  ==> private
+192.10.10.11  ==> Class C  ==> public 
+192.225.10.50 ==> Class C  ==> public  
+=======================================
+
+network block or network id
+host block or host id
+
+onbit  ==> match  ==> ping
+
+=======================================
+
+Subnet Mask         ==> default subnet mask 
+
+A   ==>  N.H.H.H    ==> 255.0.0.0
+
+B   ==>  N.N.H.H    ==> 255.255.0.0
+
+C   ==>  N.N.N.H    ==> 255.255.255.0
+
+======================================
+
+10.0.0.1    OR  10.0.0.1/8
+255.0.0.0
+
+172.16.0.11  OR   172.16.0.11/16
+255.255.0.0
+
+192.168.0.11/24
+255.255.255.0
+
+======================================
+
+How we can understand the ping connection between two or more machines ?
+
+======================================
+
+machine-1         machine-2      ==> Answer
+
+10.0.0.1          10.0.0.2       ==> YES
+172.25.0.11       172.25.250.254 ==> YES
+192.168.0.11      192.168.1.12   ==> NO
+10.12.13.14       10.12.13.25    ==> YES
+192.168.50.11     192.168.50.12  ==> YES
+192.168.50.11     192.168.60.12  ==> NO
+=======================================
+
+Router   ==> routing  ==> gateway  ==> connect
+
+=======================================
+Machine-1     192.168.0.10/24      [ note ==> there is no need to set gateway IP ]
+machine-2     192.168.0.20/24
+=======================================
+IP ==>
+netmask ==>
+gateway ==>
+
+=======================================
+Master DNS
+Slave DNS
+=======================================
+hostname or machine name or computer name 
+
+default name  ==>  localhost.localdomain
+
+  FQ . DN   ==> Fully Qualified Domain Name
+
+  station1.nokia.com
+  station2.nokia.com
+  machine1.nokia.com
+  machine1.tcs.com
+=======================================
+IP to IP
+but not name to name 
+=======================================
+DNS Server or DNS service ==> Domain name system
+
+name to ip
+ip to name 
+
+=======================================
+1-  /etc/hosts        ==> to connect machine with name without any dns server   
+2-  /etc/resolv.conf  ==> to configure my machine as a DNS Client 
+=======================================
+IP
+Subnet
+Gateway
+HOSTNAME
+Primary DNS   or Master DNS
+Secondary DNS or slace DNS
+======================================
+Lan card ==> IP  subnet gateway  primary-dns  secondary-dns
+machine  ==> hostname or machine name
+======================================
+
+OSI Model
+TCP/IP Model
+
+======================================
+TCP and UDP
+
+
+======================================
+Lan card  ==> name  ==> configuration ==> network testing 
+======================================
+IP assigning method 
+
+1- Manual method or static  ==> manual configured by any desktop admin or system admin
+2- Automatic method or DHCP ==> automatic using dhcp server 
+======================================
+
+How we can configure network between two or more machine ?
+
+1- static method
+2- dhcp method 
+
+=====================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

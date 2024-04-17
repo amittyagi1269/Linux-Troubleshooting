@@ -1,0 +1,26 @@
+================================
+SWAP Partition Concept ?
+================================
+Partition based 
+===============================
+First method ==> using fdisk or parted
+===============================
+
+Step-1   Check details about your disk using fdisk and lsblk command 
+Step-2   Go into your disk using fdisk or parted command and create partition as per needs and save it
+Step-3   Update your partition Table
+          # partprobe  /dev/sdb   [ if we are using fdisk command ] 
+          # udevadm settle        [ if we are using parted command ]
+
+===============================
+
+Step-4   create swap
+Stpe-5   activate swap
+Step-6   mount this swap partition permanently in /etc/fstab file and save this
+Step-6   Check your swap space is it active or not
+
+================================
+
+Second Method ==> using file based method  ==> dd command
+
+================================

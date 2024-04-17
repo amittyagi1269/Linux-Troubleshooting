@@ -1,0 +1,32 @@
+======================================
+  Runlevel  and Targets
+
+init      ==> runlevel
+systemd   ==> targets
+======================================
+
+Machine  <=== OS install 
+
+ISO image ==> Folder ==> number of rpms ==> commands + services + utility + tools
+
+Login  ==> command input ==> enter ==> execute  ==> screen  ==> output
+
+
+=======================================
+Choice:-
+
+1- During the OS installation 
+2- After the OS installation
+
+=======================================
+
+During the installation ==> Choice
+
+1- Server with GUI          ===> Default login Environment  ==> GUI + CLI
+2- Minimal Installation     ===> Default login environment  ==> CLI
+
+======================================= 
+
+yum ==> configure  ==> rpm installation ==> Required  ==> GUI + command ==> move ==> GUI mode
+
+=======================================

@@ -1,0 +1,190 @@
+===========================================================================
+Runlevel [ Till RHEL-6 ]  OR  Targets [ In RHEL-7 + RHEL-8 ]
+
+
+
+
+Runlevel and Targets both are use to initilize machine in different - 2 types of modes.
+
+Runlevel basically managed by  "init" program while the targets is managed by "systemd".
+
+There are 7 types of runlevel in Linux OS  ?   
+
+******************************************************************************
+
+# init	0		[ poweroff the machine ]
+
+# init	1 		[ Single user mode OR Troubleshooting Mode ]
+
+# init	2 		[ Multi user mode without Networking ]
+
+# init	3		[ Full Multi user mode with network OR CLI mode only OR Text Mode Only ]
+
+# init	4		[ un-used ] or [ Blank ]
+
+# init 	5		[ Full Multi User mode with GUI + CLI  OR  X-windows ]
+
+# init	6 		[ Reboot the machine ]
+
+********************************************************************************
+
+Note-   At a time we can run any machine only on any single  runlevel number.
+
+********************************************************************************
+
+Note-  we always run production server only on runlevel 3 [ 90% ]  OR  runlevel 5  [ 10% ]
+
+********************************************************************************
+
+
+
+How to check current runlevel number in any machine  ?
+
+# runlevel
+    
+   OR
+
+# who  -r  
+
+How to switch or change runlevel on temporary basis ?
+
+# init 3       [ to move in CLI mode ]
+
+# init 5       [ to again come back in GUI mode ]
+====================================================
+Note: If you are doing this practise in rhel-8 please Ctrl + Alt + F3 to get CLI Prompt.
+****************************************************
+
+Types of runlevel changing Method ?
+
+1- Temporary    ====>    1- using init command   2- At the time of machine boot up OR Start up.
+
+
+2- Permanent    ====>    /etc/inittab    ==> don't use this file in rhel-8
+
+***********************************************************
+
+    #   vim   /etc/inittab  
+
+
+      id : 5 : initdefault
+
+
+     :wq 
+
+   #  init  6 
+
+After raboot your machine will boot in new runlevel number whatever you have defined
+ in /etc/inittab file. 
+
+***********************************************************
+Targets :-
+
+There are two types of main targets in RHEL-7 + RHEL-8 ?
+
+1-  multi-user.target     <======>  init 3    ===> Full multi user  mode with CLI only 
+
+2-  graphical.target      <======>  init 5    ===> Full Multi user mode with GUI + CLI both 
+
+
+***********************************************************
+
+# init  6    OR   #  systemctl   reboot  
+
+# init  0    OR   #  systemctl    poweroff 
+
+**********************************************************
+
+#  init 2   
+                      Ignored in RHEL-7 + RHEL-8
+#  init 4   
+
+**********************************************************
+
+Single user  mode     ===> Till rhel-6    ===>    1  or s
+Single User  mode     ===> in rhel-7+8  ===>      rd.break
+
+**********************************************************
+
+# systemctl   get-default                             [ to check default target in my machine ]
+
+# systemctl   isolate        <your-target-name>       [ to switch from one target to another target as a Temporary basis ]
+
+# systemctl   set-default     <your-target-name>      [ to set permanent targets ]
+
+# cat  /etc/systemd/system/default.target             [ targets file ]
+
+
+===========================================================
+How we can disable Ctrl + Alt + Delete button if we are working in CLI mode on physical machine.
+Your machine will not reboot now if you will press this function.
+
+===========================================================
+
+Next Task- ?
+
+Task-1  How to go in single user mode  ?
+
+                 OR 
+
+
+        How to break root password using single user mode or troubleshooting mode ?
+
+
+Task-2  How to set username and password on single user mode OR Grub Menu OR Bootloader menu ?
+
+
+==========================================================
+
+NTLDR   ==> in windows 
+
+LilO 
+Grub
+grub-2  grand  unified Boot loader version 2 ==> rhel-7 and rhel-8   
+
+
+=========================================================
+
+Step-1   Reboot your machine 
+Step-2   Press  Down arrow key at the time of machine boot up 
+Step-3   Select First line to go into single user mode 
+Step-4   Press   e  to edit 
+Step-5   Go on Linux  line and press END button to move cursor in end of the line
+Step-6   Type  rd.break  and press ctrl+x to boot the machine 
+
+# mount -o  remount rw  /sysroot 
+# chroot  /sysroot
+# passwd
+Type passoword: redhat
+Retype password: redhat
+
+# getenforce
+# touch  /.autorelabel
+# exit
+# exit
+
+=========================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	 

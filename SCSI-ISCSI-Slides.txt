@@ -1,0 +1,155 @@
+====================================================
+SCSI   &  ISCSI 
+====================================================
+
+
+Disk provider END    ==> SCSI END   ==> Storage Provider node ==>
+                     ==> provide the network based drive to any running server
+                         machine..
+
+DISK Access  END     ==> ISCSI END
+
+====================================================
+
+
+machine <=== 
+1=> disk Local attach 
+2=> we can attach any disk from any network machine...
+
+=====================================================
+
+
+machine ==> motherboard ==> slots ==> disk  <=== disk insert
+
+ <== before installation os
+
+****************************************************
+
+
+partition creation  ==>  sda  => sda1 sda2 sda3 ... etc  
+                         sdb  => sdb1 sdb2 sdb3 ... etc
+
+****************************************************
+
+
+SCSI    ==> Small computer System Interface   ==> storage disk provide
+ISCSI   ==> Internet or Initiator  "    "  " "   ==> storage disk access 
+
+What is the use of SCSI  ?
+ 
+==> SCSI protocol basically provide the network based hard disk to attach
+    with any live servers without any downtime.
+
+==> It basically provide raw disk or blank disk..
+    so that client node can decide thier filesystem as per thier demands.
+
+==> SCSI Protocol basically is an example of SAN Storage.
+
+Types of SCSI ?
+
+1- hardware based SCSI ==> always use in Production ENV. 
+2- Software based SCSI ==> training 
+
+
+
+Types of Storage ?
+
+1-  DAS     ==>  Direct Attached Storage ==> cdrom, dvd, usb hard drive, pendirve,floppy disk...etc 
+2-  NAS     ==>  network Attached storage==> File Sharing ==>NFS server & SAMBA Server
+3-  SAN     ==>  Storage Area network ==> Block disk or network based disk sharing   
+                                      ==> SCSI + ISCSI
+
+
+********************************************************************************************************************
+
+
+We need two machines to configure SCSI and ISCSI nodes ?
+
+SCSI  node  ==> we will cofigure the network based hard drive....
+ISCSI node  ==> will access SCSI drive using CLI mode with the help of ACL Token...... 
+
+*********************************************************************************************************************
+First - machine -- SCSI
+
+Package    :      targetcli 
+Daemon     :      target
+Port Number:      3260
+File       :      /etc/target/saveconfig.json
+command    :      targetcli   ==> five command run  ==> save 
+            => convert it into json format ==> store in  /etc/target/saveconfig.json  
+
+Log:          /var/log/messages 
+
+**********************************************************************************************************************
+Second Machine --  ISCSI
+
+package :    iscsi-initiator-utils    [ by default package will be avalible]
+daemon  :    iscsid 
+command :    iscsiadm    ==> tool to access the scsi drive
+
+*********************************************************************************************************************
+
+Note:  
+
+Both machine must be in network and yum also should be available to install scsi RPMS.
+
+*********************************************************************************************************************
+
+On Server OR SCSI machine
+
+Step-1  Install SCSI server RPMs and add it into firewalld to allow the traffic
+        from client side.
+Step-2  Create the partition from any disk with any size to defined it as a
+        network drive.
+Step-3  Now define this drive as a network drive using targetcli command prompt
+       .. also create the uniq  IQN name to associate with it.
+
+Now my SCSI END is ready to serve network drive for any client node ...
+
+*********************************************************************************************************************
+
+On ISCSI END or Second machine <=====
+
+====================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

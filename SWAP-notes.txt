@@ -1,0 +1,787 @@
+==============================
+Step-1
+==============================
+[root@localhost ~]# fdisk -l
+Disk /dev/sda: 30 GiB, 32212254720 bytes, 62914560 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xd382b171
+
+Device     Boot    Start      End  Sectors  Size Id Type
+/dev/sda1  *        2048  2050047  2048000 1000M 83 Linux
+/dev/sda2        2050048 32770047 30720000 14.7G 83 Linux
+/dev/sda3       32770048 36964351  4194304    2G 82 Linux swap / Solaris
+[root@localhost ~]# 
+[root@localhost ~]# lsblk 
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda      8:0    0   30G  0 disk 
+├─sda1   8:1    0 1000M  0 part /boot
+├─sda2   8:2    0 14.7G  0 part /
+└─sda3   8:3    0    2G  0 part [SWAP]
+sr0     11:0    1  6.6G  0 rom  /run/media/root/RHEL-8-0-0-BaseOS-x86_64
+[root@localhost ~]# 
+[root@localhost ~]# parted  /dev/sda  print 
+
+
+
+
+[root@localhost ~]# parted  /dev/sda  print 
+Model: ATA VMware Virtual S (scsi)
+Disk /dev/sda: 32.2GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system     Flags
+ 1      1049kB  1050MB  1049MB  primary  xfs             boot
+ 2      1050MB  16.8GB  15.7GB  primary  xfs
+ 3      16.8GB  18.9GB  2147MB  primary  linux-swap(v1)
+
+[root@localhost ~]# 
+
+===========================
+
+Step-2  Now go into any hard disk  using fdisk and parted command 
+
+===========================
+[root@localhost ~]# fdisk /dev/sdb 
+
+Welcome to fdisk (util-linux 2.32.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS disklabel with disk identifier 0x2ecf5bb0.
+
+Command (m for help): n
+Partition type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+Select (default p): p
+Partition number (1-4, default 1): 1
+First sector (2048-10485759, default 2048): 
+Last sector, +sectors or +size{K,M,G,T,P} (2048-10485759, default 10485759): +1G
+
+Created a new partition 1 of type 'Linux' and of size 1 GiB.
+
+Command (m for help): 
+
+
+Command (m for help): p
+
+Disk /dev/sdb: 5 GiB, 5368709120 bytes, 10485760 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x2ecf5bb0
+
+Device     Boot Start     End Sectors Size Id Type
+/dev/sdb1        2048 2099199 2097152   1G 83 Linux
+
+Command (m for help): 
+
+
+Command (m for help): t
+
+Selected partition 1
+Hex code (type L to list all codes): l
+
+ 0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris        
+ 1  FAT12           27  Hidden NTFS Win 82  Linux swap / So c1  DRDOS/sec (FAT-
+ 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT-
+ 3  XENIX usr       3c  PartitionMagic  84  OS/2 hidden or  c6  DRDOS/sec (FAT-
+ 4  FAT16 <32M      40  Venix 80286     85  Linux extended  c7  Syrinx         
+ 5  Extended        41  PPC PReP Boot   86  NTFS volume set da  Non-FS data    
+ 6  FAT16           42  SFS             87  NTFS volume set db  CP/M / CTOS / .
+ 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux plaintext de  Dell Utility   
+ 8  AIX             4e  QNX4.x 2nd part 8e  Linux LVM       df  BootIt         
+ 9  AIX bootable    4f  QNX4.x 3rd part 93  Amoeba          e1  DOS access     
+ a  OS/2 Boot Manag 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O        
+ b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor      
+ c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad hi ea  Rufus alignment
+ e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         eb  BeOS fs        
+ f  W95 Ext'd (LBA) 54  OnTrackDM6      a6  OpenBSD         ee  GPT            
+10  OPUS            55  EZ-Drive        a7  NeXTSTEP        ef  EFI (FAT-12/16/
+11  Hidden FAT12    56  Golden Bow      a8  Darwin UFS      f0  Linux/PA-RISC b
+12  Compaq diagnost 5c  Priam Edisk     a9  NetBSD          f1  SpeedStor      
+14  Hidden FAT16 <3 61  SpeedStor       ab  Darwin boot     f4  SpeedStor      
+16  Hidden FAT16    63  GNU HURD or Sys af  HFS / HFS+      f2  DOS secondary  
+17  Hidden HPFS/NTF 64  Novell Netware  b7  BSDI fs         fb  VMware VMFS    
+18  AST SmartSleep  65  Novell Netware  b8  BSDI swap       fc  VMware VMKCORE 
+1b  Hidden W95 FAT3 70  DiskSecure Mult bb  Boot Wizard hid fd  Linux raid auto
+1c  Hidden W95 FAT3 75  PC/IX           bc  Acronis FAT32 L fe  LANstep        
+1e  Hidden W95 FAT1 80  Old Minix       be  Solaris boot    ff  BBT            
+Hex code (type L to list all codes): 82
+Changed type of partition 'Linux' to 'Linux swap / Solaris'.
+
+Command (m for help): 
+
+
+Command (m for help): 
+
+
+Command (m for help): p
+
+Disk /dev/sdb: 5 GiB, 5368709120 bytes, 10485760 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x2ecf5bb0
+
+Device     Boot Start     End Sectors Size Id Type
+/dev/sdb1        2048 2099199 2097152   1G 82 Linux swap / Solaris
+
+Command (m for help): w
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+[root@localhost ~]# 
+[root@localhost ~]# partprobe  /dev/sdb  
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# parted  /dev/sdb print  
+Model: ATA VMware Virtual S (scsi)
+Disk /dev/sdb: 5369MB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      1049kB  1075MB  1074MB  primary
+
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+
+
+
+
+
+
+
+
+
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# parted  /dev/sdb 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[root@localhost ~]# parted  /dev/sdb 
+GNU Parted 3.2
+Using /dev/sdb
+Welcome to GNU Parted! Type 'help' to view a list of commands.
+(parted) mkpart                                                           
+Partition type?  primary/extended? primary                                
+File system type?  [ext2]? linux-swap                                     
+Start? 1075MB                                                             
+End? 2048MB                                                               
+(parted)                                                                  
+(parted) print                                                            
+Model: ATA VMware Virtual S (scsi)
+Disk /dev/sdb: 5369MB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system     Flags
+ 1      1049kB  1075MB  1074MB  primary
+ 2      1075MB  2048MB  973MB   primary  linux-swap(v1)  lba
+
+(parted) quit                                                             
+Information: You may need to update /etc/fstab.
+
+[root@localhost ~]# udevadm settle                                        
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# fdisk -l 
+Disk /dev/sda: 30 GiB, 32212254720 bytes, 62914560 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xd382b171
+
+Device     Boot    Start      End  Sectors  Size Id Type
+/dev/sda1  *        2048  2050047  2048000 1000M 83 Linux
+/dev/sda2        2050048 32770047 30720000 14.7G 83 Linux
+/dev/sda3       32770048 36964351  4194304    2G 82 Linux swap / Solaris
+
+
+Disk /dev/sdb: 5 GiB, 5368709120 bytes, 10485760 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x0e966776
+
+Device     Boot   Start     End Sectors  Size Id Type
+/dev/sdb1          2048 2099199 2097152    1G 82 Linux swap / Solaris
+/dev/sdb2       2099200 3999743 1900544  928M 82 Linux swap / Solaris
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# swapon -s  
+Filename				Type		Size	Used	Priority
+/dev/sda3                              	partition	2097148	0	-2
+[root@localhost ~]# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# mkswap  /dev/sdb1  
+Setting up swapspace version 1, size = 1024 MiB (1073737728 bytes)
+no label, UUID=0f40c641-dd9d-47eb-b777-dd2b2be9fab3
+[root@localhost ~]# 
+[root@localhost ~]# mkswap  /dev/sdb2
+Setting up swapspace version 1, size = 928 MiB (973074432 bytes)
+no label, UUID=9453a0e3-3726-4f4b-98d6-88f3fc355806
+[root@localhost ~]# 
+[root@localhost ~]# swapon -s  
+Filename				Type		Size	Used	Priority
+/dev/sda3                              	partition	2097148	0	-2
+[root@localhost ~]# 
+[root@localhost ~]# swapon  /dev/sdb1
+[root@localhost ~]# swapon  /dev/sdb2
+[root@localhost ~]# 
+[root@localhost ~]# swapon -s 
+Filename				Type		Size	Used	Priority
+/dev/sda3                              	partition	2097148	0	-2
+/dev/sdb1                              	partition	1048572	0	-3
+/dev/sdb2                              	partition	950268	0	-4
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# free -h  
+              total        used        free      shared  buff/cache   available
+Mem:          3.7Gi       1.2Gi       1.9Gi        17Mi       568Mi       2.2Gi
+Swap:         3.9Gi          0B       3.9Gi
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# vim  /etc/fstab 
+
+
+
+
+go in bottom
+
+/dev/sdb1    swap      swap     defaults	 0 0 
+/dev/sdb2    swap      swap     defaults	 0 0 
+
+:wq
+
+
+[root@localhost ~]# systemctl daemon-reload  
+[root@localhost ~]# 
+[root@localhost ~]# df  -h 
+
+
+
+
+
+
+
+
+
+
+
+
+
+[root@localhost ~]# df  -h 
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        1.9G     0  1.9G   0% /dev
+tmpfs           1.9G     0  1.9G   0% /dev/shm
+tmpfs           1.9G  9.9M  1.9G   1% /run
+tmpfs           1.9G     0  1.9G   0% /sys/fs/cgroup
+/dev/sda2        15G  3.9G   11G  27% /
+/dev/sda1       994M  165M  830M  17% /boot
+tmpfs           376M   16K  376M   1% /run/user/42
+tmpfs           376M  3.5M  373M   1% /run/user/0
+/dev/sr0        6.7G  6.7G     0 100% /run/media/root/RHEL-8-0-0-BaseOS-x86_64
+[root@localhost ~]# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+[root@localhost ~]# 
+[root@localhost ~]# fdisk -l 
+Disk /dev/sda: 30 GiB, 32212254720 bytes, 62914560 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xd382b171
+
+Device     Boot    Start      End  Sectors  Size Id Type
+/dev/sda1  *        2048  2050047  2048000 1000M 83 Linux
+/dev/sda2        2050048 32770047 30720000 14.7G 83 Linux
+/dev/sda3       32770048 36964351  4194304    2G 82 Linux swap / Solaris
+
+
+Disk /dev/sdb: 5 GiB, 5368709120 bytes, 10485760 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x0e966776
+
+Device     Boot   Start     End Sectors  Size Id Type
+/dev/sdb1          2048 2099199 2097152    1G 82 Linux swap / Solaris
+/dev/sdb2       2099200 3999743 1900544  928M 82 Linux swap / Solaris
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# lsblk  
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda      8:0    0   30G  0 disk 
+├─sda1   8:1    0 1000M  0 part /boot
+├─sda2   8:2    0 14.7G  0 part /
+└─sda3   8:3    0    2G  0 part [SWAP]
+sdb      8:16   0    5G  0 disk 
+├─sdb1   8:17   0    1G  0 part [SWAP]
+└─sdb2   8:18   0  928M  0 part [SWAP]
+sr0     11:0    1  6.6G  0 rom  /run/media/root/RHEL-8-0-0-BaseOS-x86_64
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# swapon -s
+Filename				Type		Size	Used	Priority
+/dev/sda3                              	partition	2097148	0	-2
+/dev/sdb1                              	partition	1048572	0	-3
+/dev/sdb2                              	partition	950268	0	-4
+[root@localhost ~]# 
+[root@localhost ~]# free  -h  
+              total        used        free      shared  buff/cache   available
+Mem:          3.7Gi       1.2Gi       1.9Gi        17Mi       572Mi       2.2Gi
+Swap:         3.9Gi          0B       3.9Gi
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# cat  /proc/meminfo | grep -i  swap 
+SwapCached:            0 kB
+SwapTotal:       4095988 kB
+SwapFree:        4095988 kB
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+
+====================================
+reboot your machine if yoy want to this 
+====================================
+
+# reboot
+
+[root@localhost ~]# lsblk 
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda      8:0    0   30G  0 disk 
+├─sda1   8:1    0 1000M  0 part /boot
+├─sda2   8:2    0 14.7G  0 part /
+└─sda3   8:3    0    2G  0 part [SWAP]
+sdb      8:16   0    5G  0 disk 
+├─sdb1   8:17   0    1G  0 part [SWAP]
+└─sdb2   8:18   0  928M  0 part [SWAP]
+sr0     11:0    1  6.6G  0 rom  /run/media/root/RHEL-8-0-0-BaseOS-x86_64
+[root@localhost ~]# 
+[root@localhost ~]# free -h
+              total        used        free      shared  buff/cache   available
+Mem:          3.7Gi       1.2Gi       1.9Gi        17Mi       585Mi       2.2Gi
+Swap:         3.9Gi          0B       3.9Gi
+[root@localhost ~]# 
+
+=====================================
+
+How we can deactivate and reactivate swap ?
+
+[root@localhost ~]# swapoff  /dev/sdb2
+[root@localhost ~]# 
+[root@localhost ~]# swapon -s  
+Filename				Type		Size	Used	Priority
+/dev/sdb1                              	partition	1048572	0	-2
+/dev/sda3                              	partition	2097148	0	-3
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# free -h
+              total        used        free      shared  buff/cache   available
+Mem:          3.7Gi       1.2Gi       1.9Gi        17Mi       583Mi       2.2Gi
+Swap:         3.0Gi          0B       3.0Gi
+[root@localhost ~]# 
+[root@localhost ~]# swapon   /dev/sdb2
+[root@localhost ~]# 
+[root@localhost ~]# swapon -s  
+Filename				Type		Size	Used	Priority
+/dev/sdb1                              	partition	1048572	0	-2
+/dev/sda3                              	partition	2097148	0	-3
+/dev/sdb2                              	partition	950268	0	-4
+[root@localhost ~]# 
+[root@localhost ~]# free -h
+              total        used        free      shared  buff/cache   available
+Mem:          3.7Gi       1.2Gi       1.9Gi        17Mi       583Mi       2.2Gi
+Swap:         3.9Gi          0B       3.9Gi
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# swapoff  -a  
+[root@localhost ~]# 
+[root@localhost ~]# swapon -s  
+[root@localhost ~]# 
+[root@localhost ~]# lsblk  
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda      8:0    0   30G  0 disk 
+├─sda1   8:1    0 1000M  0 part /boot
+├─sda2   8:2    0 14.7G  0 part /
+└─sda3   8:3    0    2G  0 part 
+sdb      8:16   0    5G  0 disk 
+├─sdb1   8:17   0    1G  0 part 
+└─sdb2   8:18   0  928M  0 part 
+sr0     11:0    1  6.6G  0 rom  /run/media/root/RHEL-8-0-0-BaseOS-x86_64
+[root@localhost ~]# 
+[root@localhost ~]# swapon  /dev/sda3
+[root@localhost ~]# 
+[root@localhost ~]# lsblk  
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda      8:0    0   30G  0 disk 
+├─sda1   8:1    0 1000M  0 part /boot
+├─sda2   8:2    0 14.7G  0 part /
+└─sda3   8:3    0    2G  0 part [SWAP]
+sdb      8:16   0    5G  0 disk 
+├─sdb1   8:17   0    1G  0 part 
+└─sdb2   8:18   0  928M  0 part 
+sr0     11:0    1  6.6G  0 rom  /run/media/root/RHEL-8-0-0-BaseOS-x86_64
+[root@localhost ~]# 
+[root@localhost ~]# swapon -a  
+[root@localhost ~]# 
+[root@localhost ~]# lsblk  
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda      8:0    0   30G  0 disk 
+├─sda1   8:1    0 1000M  0 part /boot
+├─sda2   8:2    0 14.7G  0 part /
+└─sda3   8:3    0    2G  0 part [SWAP]
+sdb      8:16   0    5G  0 disk 
+├─sdb1   8:17   0    1G  0 part [SWAP]
+└─sdb2   8:18   0  928M  0 part [SWAP]
+sr0     11:0    1  6.6G  0 rom  /run/media/root/RHEL-8-0-0-BaseOS-x86_64
+[root@localhost ~]# 
+
+
+============================================
+How we can delete the swap step by step ?
+============================================
+
+[root@localhost ~]# swapon -s  
+Filename				Type		Size	Used	Priority
+/dev/sda3                              	partition	2097148	0	-2
+/dev/sdb1                              	partition	1048572	0	-3
+/dev/sdb2                              	partition	950268	0	-4
+[root@localhost ~]# 
+[root@localhost ~]# swapoff  /dev/sdb1
+[root@localhost ~]# swapoff  /dev/sdb2
+[root@localhost ~]# 
+[root@localhost ~]# swapon -s  
+Filename				Type		Size	Used	Priority
+/dev/sda3                              	partition	2097148	0	-2
+[root@localhost ~]# 
+[root@localhost ~]# vim  /etc/fstab 
+
+delete last two entry 
+
+:wq
+
+
+root@localhost ~]# systemctl daemon-reload 
+
+[root@localhost ~]# 
+[root@localhost ~]# fdisk  /dev/sdb
+
+Welcome to fdisk (util-linux 2.32.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): d
+Partition number (1,2, default 2): 2
+
+Partition 2 has been deleted.
+
+Command (m for help): d
+Selected partition 1
+Partition 1 has been deleted.
+
+Command (m for help): w
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+[root@localhost ~]# partprobe   /dev/sdb  
+[root@localhost ~]# 
+[root@localhost ~]# fdisk -l 
+[root@localhost ~]# fdisk -l 
+Disk /dev/sda: 30 GiB, 32212254720 bytes, 62914560 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xd382b171
+
+Device     Boot    Start      End  Sectors  Size Id Type
+/dev/sda1  *        2048  2050047  2048000 1000M 83 Linux
+/dev/sda2        2050048 32770047 30720000 14.7G 83 Linux
+/dev/sda3       32770048 36964351  4194304    2G 82 Linux swap / Solaris
+
+
+Disk /dev/sdb: 5 GiB, 5368709120 bytes, 10485760 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x0e966776
+[root@localhost ~]# 
+
+=========================
+reboot your machine for testing purpose only
+
+=========================
+Method-2  File based method using dd command  
+=========================
+[root@localhost ~]# df  -h  
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        1.9G     0  1.9G   0% /dev
+tmpfs           1.9G     0  1.9G   0% /dev/shm
+tmpfs           1.9G  9.9M  1.9G   1% /run
+tmpfs           1.9G     0  1.9G   0% /sys/fs/cgroup
+/dev/sda2        15G  3.9G   11G  27% /
+/dev/sda1       994M  165M  830M  17% /boot
+tmpfs           376M   16K  376M   1% /run/user/42
+tmpfs           376M  3.5M  373M   1% /run/user/0
+/dev/sr0        6.7G  6.7G     0 100% /run/media/root/RHEL-8-0-0-BaseOS-x86_64
+[root@localhost ~]# 
+[root@localhost ~]# ls  /
+bin   dev    etc   lib    media  opt   root  sbin  sys  usr
+boot  drive  home  lib64  mnt    proc  run   srv   tmp  var
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# which dd  
+/usr/bin/dd
+[root@localhost ~]# dd  if=/dev/zero   of=/swapfile  bs=1G   count=1 
+1+0 records in
+1+0 records out
+1073741824 bytes (1.1 GB, 1.0 GiB) copied, 11.5264 s, 93.2 MB/s
+[root@localhost ~]# 
+[root@localhost ~]# ls /
+bin   dev    etc   lib    media  opt   root  sbin  swapfile  tmp  var
+boot  drive  home  lib64  mnt    proc  run   srv   sys       usr
+[root@localhost ~]# 
+[root@localhost ~]# du -sh /swapfile 
+1.0G	/swapfile
+[root@localhost ~]# 
+[root@localhost ~]# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        1.9G     0  1.9G   0% /dev
+tmpfs           1.9G     0  1.9G   0% /dev/shm
+tmpfs           1.9G  9.9M  1.9G   1% /run
+tmpfs           1.9G     0  1.9G   0% /sys/fs/cgroup
+/dev/sda2        15G  4.9G  9.9G  33% /
+/dev/sda1       994M  165M  830M  17% /boot
+tmpfs           376M   16K  376M   1% /run/user/42
+tmpfs           376M  3.5M  373M   1% /run/user/0
+/dev/sr0        6.7G  6.7G     0 100% /run/media/root/RHEL-8-0-0-BaseOS-x86_64
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# ls  /
+bin   dev    etc   lib    media  opt   root  sbin  swapfile  tmp  var
+boot  drive  home  lib64  mnt    proc  run   srv   sys       usr
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# touch  /abc  
+[root@localhost ~]# 
+[root@localhost ~]# ls  /
+abc  boot  drive  home  lib64  mnt  proc  run   srv       sys  usr
+bin  dev   etc    lib   media  opt  root  sbin  swapfile  tmp  var
+[root@localhost ~]# 
+[root@localhost ~]# file  /abc  
+/abc: empty
+[root@localhost ~]# 
+[root@localhost ~]# file  /swapfile 
+/swapfile: data
+[root@localhost ~]# echo hello > /abc  
+[root@localhost ~]# 
+[root@localhost ~]# file  /abc  
+/abc: ASCII text
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# mkswap  -v1  -f  /swapfile 
+mkswap: /swapfile: insecure permissions 0644, 0600 suggested.
+Setting up swapspace version 1, size = 1024 MiB (1073737728 bytes)
+no label, UUID=2fba14f2-6eb5-46af-a222-f59638618b36
+[root@localhost ~]# 
+[root@localhost ~]# chmod 0600  /swapfile 
+[root@localhost ~]# 
+[root@localhost ~]# ls -l  /swapfile 
+-rw-------. 1 root root 1073741824 Dec 25 12:39 /swapfile
+[root@localhost ~]# 
+[root@localhost ~]# swapon  -s  
+Filename				Type		Size	Used	Priority
+/dev/sda3                              	partition	2097148	268	-2
+[root@localhost ~]# 
+[root@localhost ~]# swapon  /swapfile  
+[root@localhost ~]# 
+
+
+
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# swapon  -s  
+Filename				Type		Size	Used	Priority
+/dev/sda3                              	partition	2097148	268	-2
+/swapfile                              	file    	1048572	0	-3
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# vim /etc/fstab 
+
+go in bottom and add this line
+
+
+
+
+
+[root@localhost ~]# vim /etc/fstab 
+[root@localhost ~]# 
+[root@localhost ~]# systemctl daemon-reload 
+
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# free  -h  
+              total        used        free      shared  buff/cache   available
+Mem:          3.7Gi       1.2Gi       1.1Gi        17Mi       1.4Gi       2.2Gi
+Swap:         3.0Gi       0.0Ki       3.0Gi
+[root@localhost ~]# 
+
+==========================
+Reboot your machine testing purpose only
+==========================
+[root@localhost ~]# free  -h 
+              total        used        free      shared  buff/cache   available
+Mem:          3.7Gi       1.3Gi       1.8Gi        17Mi       573Mi       2.1Gi
+Swap:         3.0Gi          0B       3.0Gi
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# swapon -s  
+Filename				Type		Size	Used	Priority
+/dev/sda3                              	partition	2097148	0	-2
+/swapfile                              	file    	1048572	0	-3
+[root@localhost ~]# 
+
+============================
+
+
+ 
+[root@localhost ~]# swapon -s  
+Filename				Type		Size	Used	Priority
+/dev/sda3                              	partition	2097148	0	-2
+[root@localhost ~]# 
+[root@localhost ~]# vim /etc/fstab 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# systemctl daemon-reload  
+
+[root@localhost ~]# 
+[root@localhost ~]# ls  /
+abc  boot  drive  home  lib64  mnt  proc  run   srv       sys  usr
+bin  dev   etc    lib   media  opt  root  sbin  swapfile  tmp  var
+[root@localhost ~]# 
+[root@localhost ~]# file  /swapfile 
+/swapfile: Linux/i386 swap file (new style), version 1 (4K pages), size 262143 pages, no label, UUID=2fba14f2-6eb5-46af-a222-f59638618b36
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# rm -rf  /swapfile 
+[root@localhost ~]# 
+[root@localhost ~]# df -h  
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        1.9G     0  1.9G   0% /dev
+tmpfs           1.9G     0  1.9G   0% /dev/shm
+tmpfs           1.9G  9.9M  1.9G   1% /run
+tmpfs           1.9G     0  1.9G   0% /sys/fs/cgroup
+/dev/sda2        15G  3.9G   11G  27% /
+/dev/sda1       994M  165M  830M  17% /boot
+tmpfs           376M   16K  376M   1% /run/user/42
+tmpfs           376M  3.5M  373M   1% /run/user/0
+/dev/sr0        6.7G  6.7G     0 100% /run/media/root/RHEL-8-0-0-BaseOS-x86_64
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+[root@localhost ~]# 
+
+
+
+
+
+
+

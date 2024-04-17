@@ -1,0 +1,102 @@
+================================================================================
+
+
+     SSH Server and SSH Client 
+
+       [ Secure Shell ]
+
+================================================================================
+
+Machine  <=== OS  <== activity  <== types user's
+
+
+Types of login method ?
+
+1- Local to local login concept
+
+2- Remote Login Concept
+
+machine  <=== IP + username + password or key file
+
+=================================================================================
+
+1- SSH Services always use for remote login from one  machine to another machine.
+
+2- SSH services support on both types of environment LAN and WAN.
+
+3- In client side we can have any operating system to make connection with the server machine.
+
+4- SSH basically is an advance concept of telnet service.
+
+5- SSH is much secure service as compare to telnet because in SSH all information
+   always transfer in encrypted format but in telnet it was in plain text concept.
+
+==================================================================================
+=================================================================================
+
+
+
+
+IMPORTANT Points About SSH Service 
+
+1- SSH stand for Secure Shell.
+2- SSH is a network protocol for secure data communication.
+3- SSH protocol allows remote command line login.
+4- SSH protocol enables remote command execution.
+5- To use SSH you need to deploy SSH Server and SSH Client program respectively.
+6- Telnet, rlogin, and ftp transmit unencrypted data over internet.
+7- OpenSSH encrypt data before sending it over insecure network like internet.
+8- OpenSSH effectively eliminate eavesdropping, connection hijacking, and other attacks.
+9- OpenSSH provides secure tunneling and several authentication methods.
+10- OpenSSH replace Telnet and rlogin with SSH, rcp with scp, ftp with sftp.
+
+==================================================================================
+========================================================================
+Server Side ?
+
+Package                   ==>  openssh-server 
+Daemon or service or unit ==>  sshd
+Port Number               ==>  22 ( by default port number )
+Configuration File        ==>  /etc/ssh/sshd_config 
+Log File                  ==>  /var/log/secure
+
+========================================================================
+Client Side ?
+
+Linux Based     ==>  openssh-clients    [ already installed during the OS installation time ]
+                         or
+                     # ssh  username@serverip
+
+Windoes based   ==>  putty.exe          [ need to install manually ]
+
+========================================================================
+
+Note:-  Both machines must be in network
+
+========================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
